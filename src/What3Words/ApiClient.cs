@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 
 namespace What3Words
 {
-    public class ApiClient
+    internal class ApiClient
     {
-        private static string _apiKey;
         private static readonly string ApiBaseUrl = "https://api.what3words.com/v2/";
+        private static string _apiKey;
         private static HttpClient _httpClient;
 
         public ApiClient(string apiKey)
