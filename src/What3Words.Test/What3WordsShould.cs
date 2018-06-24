@@ -8,16 +8,14 @@ namespace What3Words.Test
         private readonly string ApiKey = "<Your API key here>";
 
         [Fact]
-        public async void ReturnCorrect3WordsFromLocation()
+        public async void ReturnCorrectReverseGeocodeResponse()
         {
             var w3w = new What3Words(ApiKey);
 
             var result = await w3w.ReverseGeocode(42.998737, -81.254357);
 
-            result.FirstWord.ShouldBe("offshore");
-            result.SecondWord.ShouldBe("bitters");
-            result.ThirdWord.ShouldBe("voltage");
             result.ToString().ShouldBe("offshore.bitters.voltage");
+            result.Map.ShouldBe("http://w3w.co/offshore.bitters.voltage");
         }
     }
 }
