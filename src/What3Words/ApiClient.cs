@@ -13,7 +13,7 @@ namespace What3Words
 
         public ApiClient(string apiKey)
         {
-            _apiKey = apiKey;
+            _apiKey = apiKey ?? throw new NullReferenceException("API key must not be null");
             _httpClient = new HttpClient
             {
                 BaseAddress = new Uri(ApiBaseUrl)
