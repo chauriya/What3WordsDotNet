@@ -1,6 +1,6 @@
 ﻿namespace What3Words
 {
-    public class ReverseGeocodeResponse
+    public class What3WordsResponse
     {
         public Crs Crs { get; set; }
         public string Words { get; set; }
@@ -37,20 +37,20 @@
 
     public class Southwest
     {
-        public float Lng { get; set; }
-        public float Lat { get; set; }
+        public double Lng { get; set; }
+        public double Lat { get; set; }
     }
 
     public class Northeast
     {
-        public float Lng { get; set; }
-        public float Lat { get; set; }
+        public double Lng { get; set; }
+        public double Lat { get; set; }
     }
 
     public class Geometry
     {
-        public float Lng { get; set; }
-        public float Lat { get; set; }
+        public double Lng { get; set; }
+        public double Lat { get; set; }
     }
 
     public class Status

@@ -11,7 +11,12 @@ namespace What3Words
             _apiClient = new ApiClient(apiKey);
         }
 
-        public async Task<ReverseGeocodeResponse> ReverseGeocode(double lat, double lng)
+        public async Task<What3WordsResponse> ForwardGeocode(string firstWord, string secondWord, string thirdWord)
+        {
+            return await _apiClient.Forward(firstWord, secondWord, thirdWord);
+        }
+
+        public async Task<What3WordsResponse> ReverseGeocode(double lat, double lng)
         {
             return await _apiClient.Reverse(lat, lng);
         }

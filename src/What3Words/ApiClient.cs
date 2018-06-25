@@ -21,14 +21,24 @@ namespace What3Words
             };
         }
 
-        public async Task<ReverseGeocodeResponse> Reverse(double lat, double lng)
+        public async Task<What3WordsResponse> Forward(string firstWord, string secondWord, string thirdWord)
+        {
+            var response = await _httpClient.GetAsync($"forward?addr={firstWord}.{secondWord}.{thirdWord}&display=full&format=json&key={_apiKey}");
+            if (!response.IsSuccessStatusCode)
+                HandleUnsuccessfulResponse(response);
+
+            var json = await response.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<What3WordsResponse>(json);
+        }
+
+        public async Task<What3WordsResponse> Reverse(double lat, double lng)
         {
             var response = await _httpClient.GetAsync($"reverse?coords={lat},{lng}&display=full&format=json&key={_apiKey}");
             if (!response.IsSuccessStatusCode)
                 HandleUnsuccessfulResponse(response);
             
             var json = await response.Content.ReadAsStringAsync();
-            return JsonConvert.DeserializeObject<ReverseGeocodeResponse>(json);
+            return JsonConvert.DeserializeObject<What3WordsResponse>(json);
         }
 
         private void HandleUnsuccessfulResponse(HttpResponseMessage response)
