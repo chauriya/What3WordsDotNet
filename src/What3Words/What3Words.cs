@@ -1,24 +1,51 @@
-﻿using System.Threading.Tasks;
+﻿using Newtonsoft.Json;
+using System;
+using System.Net;
+using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace What3Words
 {
     public class What3Words : IWhat3Words
     {
-        private static ApiClient _apiClient;
+        private const string ApiBaseUrl = "https://api.what3words.com/v3/";
+        private static string _apiKey;
+        private static HttpClient _httpClient;
 
         public What3Words(string apiKey)
         {
-            _apiClient = new ApiClient(apiKey);
+            _apiKey = apiKey ?? throw new NullReferenceException("API key must not be null");
+            _httpClient = new HttpClient
+            {
+                BaseAddress = new Uri(ApiBaseUrl)
+            };
         }
 
         public async Task<What3WordsResponse> ConvertToCoordinates(string firstWord, string secondWord, string thirdWord)
         {
-            return await _apiClient.ConvertToCoordinates(firstWord, secondWord, thirdWord);
+            var response = await _httpClient.GetAsync($"convert-to-coordinates?words={firstWord}.{secondWord}.{thirdWord}&key={_apiKey}");
+            if (!response.IsSuccessStatusCode)
+                HandleUnsuccessfulResponse(response);
+
+            var json = await response.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<What3WordsResponse>(json);
         }
 
         public async Task<What3WordsResponse> ConvertTo3wa(double lat, double lng)
         {
-            return await _apiClient.ConvertTo3wa(lat, lng);
+            var response = await _httpClient.GetAsync($"convert-to-3wa?coordinates={lat},{lng}&key={_apiKey}");
+            if (!response.IsSuccessStatusCode)
+                HandleUnsuccessfulResponse(response);
+
+            var json = await response.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<What3WordsResponse>(json);
+        }
+        private static void HandleUnsuccessfulResponse(HttpResponseMessage response)
+        {
+            if (response.StatusCode == HttpStatusCode.Unauthorized)
+            {
+                throw new UnauthorizedAccessException("The API key is invalid");
+            }
         }
     }
 }
