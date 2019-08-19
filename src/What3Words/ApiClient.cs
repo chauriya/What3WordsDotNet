@@ -8,7 +8,7 @@ namespace What3Words
 {
     internal class ApiClient
     {
-        private static readonly string ApiBaseUrl = "https://api.what3words.com/v2/";
+        private const string ApiBaseUrl = "https://api.what3words.com/v3/";
         private static string _apiKey;
         private static HttpClient _httpClient;
 
@@ -21,9 +21,9 @@ namespace What3Words
             };
         }
 
-        public async Task<What3WordsResponse> Forward(string firstWord, string secondWord, string thirdWord)
+        public async Task<What3WordsResponse> ConvertToCoordinates(string firstWord, string secondWord, string thirdWord)
         {
-            var response = await _httpClient.GetAsync($"forward?addr={firstWord}.{secondWord}.{thirdWord}&display=full&format=json&key={_apiKey}");
+            var response = await _httpClient.GetAsync($"convert-to-coordinates?words={firstWord}.{secondWord}.{thirdWord}&key={_apiKey}");
             if (!response.IsSuccessStatusCode)
                 HandleUnsuccessfulResponse(response);
 
@@ -31,9 +31,9 @@ namespace What3Words
             return JsonConvert.DeserializeObject<What3WordsResponse>(json);
         }
 
-        public async Task<What3WordsResponse> Reverse(double lat, double lng)
+        public async Task<What3WordsResponse> ConvertTo3wa(double lat, double lng)
         {
-            var response = await _httpClient.GetAsync($"reverse?coords={lat},{lng}&display=full&format=json&key={_apiKey}");
+            var response = await _httpClient.GetAsync($"convert-to-3wa?coordinates={lat},{lng}&key={_apiKey}");
             if (!response.IsSuccessStatusCode)
                 HandleUnsuccessfulResponse(response);
             

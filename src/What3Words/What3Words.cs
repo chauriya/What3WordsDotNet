@@ -11,14 +11,14 @@ namespace What3Words
             _apiClient = new ApiClient(apiKey);
         }
 
-        public async Task<What3WordsResponse> ForwardGeocode(string firstWord, string secondWord, string thirdWord)
+        public async Task<What3WordsResponse> ConvertToCoordinates(string firstWord, string secondWord, string thirdWord)
         {
-            return await _apiClient.Forward(firstWord, secondWord, thirdWord);
+            return await _apiClient.ConvertToCoordinates(firstWord, secondWord, thirdWord);
         }
 
-        public async Task<What3WordsResponse> ReverseGeocode(double lat, double lng)
+        public async Task<What3WordsResponse> ConvertTo3wa(double lat, double lng)
         {
-            return await _apiClient.Reverse(lat, lng);
+            return await _apiClient.ConvertTo3wa(lat, lng);
         }
     }
 }

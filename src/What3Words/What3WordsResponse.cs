@@ -2,13 +2,13 @@
 {
     public class What3WordsResponse
     {
-        public Crs Crs { get; set; }
+        public string Country { get; set; }
+        public Square Square { get; set; }
+        public string NearestPlace { get; set; }
+        public Coordinates Coordinates { get; set; }
         public string Words { get; set; }
-        public Bounds Bounds { get; set; }
-        public Geometry Geometry { get; set; }
         public string Language { get; set; }
         public string Map { get; set; }
-        public Status Status { get; set; }
 
         public override string ToString()
         {
@@ -17,19 +17,7 @@
         }
     }
 
-    public class Crs
-    {
-        public string Type { get; set; }
-        public Properties Properties { get; set; }
-    }
-
-    public class Properties
-    {
-        public string Href { get; set; }
-        public string Type { get; set; }
-    }
-
-    public class Bounds
+    public class Square
     {
         public Southwest Southwest { get; set; }
         public Northeast Northeast { get; set; }
@@ -37,25 +25,19 @@
 
     public class Southwest
     {
-        public double Lng { get; set; }
-        public double Lat { get; set; }
+        public float Lng { get; set; }
+        public float Lat { get; set; }
     }
 
     public class Northeast
     {
-        public double Lng { get; set; }
-        public double Lat { get; set; }
+        public float Lng { get; set; }
+        public float Lat { get; set; }
     }
 
-    public class Geometry
+    public class Coordinates
     {
         public double Lng { get; set; }
         public double Lat { get; set; }
-    }
-
-    public class Status
-    {
-        public int Code { get; set; }
-        public string Message { get; set; }
     }
 }
