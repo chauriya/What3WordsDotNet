@@ -17,6 +17,8 @@ namespace What3Words.Test
 
             result.ToString().ShouldBe("offshore.bitters.voltage");
             result.Map.ShouldBe("https://w3w.co/offshore.bitters.voltage");
+            result.NearestPlace.ShouldBe("London, Ontario");
+            result.Country.ShouldBe("CA");
             result.Coordinates.Lat.ShouldBe(42.998747);
             result.Coordinates.Lng.ShouldBe(-81.254366);
         }
@@ -30,6 +32,10 @@ namespace What3Words.Test
 
             result.ToString().ShouldBe("offshore.bitters.voltage");
             result.Map.ShouldBe("https://w3w.co/offshore.bitters.voltage");
+            result.NearestPlace.ShouldBe("London, Ontario");
+            result.Country.ShouldBe("CA");
+            result.Coordinates.Lat.ShouldBe(42.998747);
+            result.Coordinates.Lng.ShouldBe(-81.254366);
         }
 
         [Fact]
